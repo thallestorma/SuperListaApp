@@ -1,0 +1,26 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{ item.name }}</ion-title>
+	<ion-buttons end>
+	<button ion-button (click)="done()">
+	  <span color="primary" showWhen="ios">
+	    Editar
+	  </span>
+	  <ion-icon name="md-checkmark" showWhen="core,android,windows"></ion-icon>
+	</button>
+	</ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <div class="item-profile" text-center #profilePic [style.background-image]="'url(' + item.profilePic + ')'">
+  </div>
+
+  <div class="item-detail" padding>
+    <h2>{{item.name}}</h2>
+  </div>
+  
+</ion-content>
