@@ -3,9 +3,9 @@
   <ion-navbar>
     <ion-title>{{ item.name }}</ion-title>
 	<ion-buttons end>
-	<button ion-button (click)="done()">
+	<button ion-button (click)="done()" [disabled]="!isReadyToSave">
 	  <span color="primary" showWhen="ios">
-	    Editar
+	    Salvar
 	  </span>
 	  <ion-icon name="md-checkmark" showWhen="core,android,windows"></ion-icon>
 	</button>
@@ -18,9 +18,30 @@
 <ion-content>
   <div class="item-profile" text-center #profilePic [style.background-image]="'url(' + item.profilePic + ')'">
   </div>
+  <form *ngIf="form" [formGroup]="form">
+    <ion-list>
+      <ion-item>
+        <ion-input type="text" placeholder="Digite aqui" formControlName="name"></ion-input>
+        <button ion-button item-right (click)="quantityDecrement(subItem)"><ion-icon name="md-remove"></ion-icon></button>
+        <ion-input item-right type="number" formControlName="quantity"></ion-input>
+        <button ion-button item-right (click)="quantityIncrement(subItem)"><ion-icon name="md-add"></ion-icon></button>
+      </ion-item>
+      <ion-item-sliding *ngFor="let subItem of item.subItems">
+        <ion-item detail-none >
+          <h2>{{subItem.name}}</h2>
+          <button ion-button item-right (click)="quantityDecrement(subItem)"><ion-icon name="md-remove"></ion-icon></button>
+          {{subItem.quantity}}
+          <button ion-button item-right (click)="quantityIncrement(subItem)"><ion-icon name="md-add"></ion-icon></button>
+        </ion-item>
 
-  <div class="item-detail" padding>
-    <h2>{{item.name}}</h2>
-  </div>
+        <ion-item-options>
+          <button ion-button color="danger" (click)="deleteSubItem(subItem)">
+            Excluir
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+  </form>
   
 </ion-content>
+

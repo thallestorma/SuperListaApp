@@ -9,7 +9,17 @@ export class Items {
 
   defaultItem: any = {
     "name": "Burt Bear",
-    "profilePic": "assets/img/speakers/bear.jpg"
+    "profilePic": "assets/img/speakers/bear.jpg",
+    "subItems": [
+      {
+        "name": "Sub item 1",
+        "quantity": 3
+      },
+      {
+        "name": "Sub item 2",
+        "quantity": 3
+      }
+    ]
   };
 
 
@@ -17,31 +27,109 @@ export class Items {
     let items = [
       {
          "name": "Burt Bear",
-         "profilePic": "assets/img/speakers/bear.jpg"
+         "profilePic": "assets/img/speakers/bear.jpg",
+         "subItems": [
+           {
+             "name": "Sub item 1",
+             "quantity": 3
+           },
+           {
+             "name": "Sub item 2",
+             "quantity": 3
+           }
+         ]
        },
        {
          "name": "Charlie Cheetah",
-         "profilePic": "assets/img/speakers/cheetah.jpg"
+         "profilePic": "assets/img/speakers/cheetah.jpg",
+         "subItems": [
+           {
+             "name": "Sub item 1",
+             "quantity": 3
+           },
+           {
+             "name": "Sub item 2",
+             "quantity": 3
+           }
+         ]
        },
        {
          "name": "Donald Duck",
-         "profilePic": "assets/img/speakers/duck.jpg"
+         "profilePic": "assets/img/speakers/duck.jpg",
+         "subItems": [
+           {
+             "name": "Sub item 1",
+             "quantity": 3
+           },
+           {
+             "name": "Sub item 2",
+             "quantity": 3
+           },
+           {
+             "name": "Sub item 3",
+             "quantity": 3
+           },
+           {
+             "name": "Sub item 4",
+             "quantity": 3
+           }
+         ]
        },
        {
          "name": "Eva Eagle",
-         "profilePic": "assets/img/speakers/eagle.jpg"
+         "profilePic": "assets/img/speakers/eagle.jpg",
+         "subItems": [
+           {
+             "name": "Sub item 1",
+             "quantity": 3
+           },
+           {
+             "name": "Sub item 2",
+             "quantity": 3
+           }
+         ]
        },
        {
          "name": "Ellie Elephant",
-         "profilePic": "assets/img/speakers/elephant.jpg"
+         "profilePic": "assets/img/speakers/elephant.jpg",
+         "subItems": [
+           {
+             "name": "Sub item 1",
+             "quantity": 3
+           },
+           {
+             "name": "Sub item 2",
+             "quantity": 3
+           }
+         ]
        },
        {
          "name": "Molly Mouse",
-         "profilePic": "assets/img/speakers/mouse.jpg"
+         "profilePic": "assets/img/speakers/mouse.jpg",
+         "subItems": [
+           {
+             "name": "Sub item 1",
+             "quantity": 3
+           },
+           {
+             "name": "Sub item 2",
+             "quantity": 3
+           }
+         ]
        },
        {
          "name": "Paul Puppy",
-         "profilePic": "assets/img/speakers/puppy.jpg"
+         "profilePic": "assets/img/speakers/puppy.jpg",
+         "subItems": [
+           {
+             "name": "Sub item 1",
+             "quantity": 3
+           },
+           {
+             "name": "Sub item 2",
+             "quantity": 3
+           }
+         ]
        }
      ];
 

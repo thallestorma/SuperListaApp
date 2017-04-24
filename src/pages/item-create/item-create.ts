@@ -35,10 +35,6 @@ export class ItemCreatePage {
     });
   }
 
-  ionViewDidLoad() {
-
-  }
-
   getPicture() {
     this.camera.getPicture({
       destinationType: this.camera.DestinationType.DATA_URL,
