@@ -21,7 +21,7 @@ export class ItemDetailPage {
 
     this.form = formBuilder.group({
       name: ['', Validators.required],
-      quantity: [''],
+      quantity: [1, Validators.required],
     });
 
     this.form.valueChanges.subscribe((v) => {
@@ -34,24 +34,24 @@ export class ItemDetailPage {
   }
 
   quantityIncrement(subItem) {
-    let quantity;
-    if (typeof subItem == 'undefined') {
-      quantity = this.form.controls.quantity.value;
-      this.form.patchValue({ 'quantity': ++quantity });
-      console.log(this.form.controls.quantity.value);
-    } else {
-      subItem.quantity++;
+    let quantity = this.form.controls.quantity.value;
+    if(quantity < 99) {
+      if (subItem == null) {
+          this.form.patchValue({ 'quantity': ++quantity });
+      } else {
+        subItem.quantity++;
+      }
     }
   }
 
   quantityDecrement(subItem) {
-    let quantity;
-    if (typeof subItem == 'undefined') {
-      quantity = this.form.controls.quantity.value;
-      this.form.patchValue({ 'quantity': --quantity });
-      console.log(this.form.controls.quantity.value);
-    } else {
-      subItem.quantity--;
+    let quantity = this.form.controls.quantity.value;
+    if(quantity > 1) {
+      if (subItem == null) {
+          this.form.patchValue({ 'quantity': --quantity });
+      } else {
+        subItem.quantity--;
+      }
     }
   }
 

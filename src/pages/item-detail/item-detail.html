@@ -23,7 +23,7 @@
       <ion-item>
         <ion-input type="text" placeholder="Digite aqui" formControlName="name"></ion-input>
         <button ion-button item-right (click)="quantityDecrement(subItem)"><ion-icon name="md-remove"></ion-icon></button>
-        <ion-input item-right type="number" formControlName="quantity"></ion-input>
+        <ion-input item-right type="number" formControlName="quantity" disabled="true"></ion-input>
         <button ion-button item-right (click)="quantityIncrement(subItem)"><ion-icon name="md-add"></ion-icon></button>
       </ion-item>
       <ion-item-sliding *ngFor="let subItem of item.subItems">

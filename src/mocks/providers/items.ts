@@ -8,16 +8,16 @@ export class Items {
   items: Item[] = [];
 
   defaultItem: any = {
-    "name": "Burt Bear",
-    "profilePic": "assets/img/speakers/bear.jpg",
+    "name": "Compras família",
+    "profilePic": "assets/img/speakers/familia.jpg",
     "subItems": [
       {
-        "name": "Sub item 1",
-        "quantity": 3
+        "name": "Arroz",
+        "quantity": 1
       },
       {
-        "name": "Sub item 2",
-        "quantity": 3
+        "name": "Azeite",
+        "quantity": 2
       }
     ]
   };
@@ -26,109 +26,62 @@ export class Items {
   constructor(public http: Http) {
     let items = [
       {
-         "name": "Burt Bear",
-         "profilePic": "assets/img/speakers/bear.jpg",
+         "name": "Compras família",
+         "profilePic": "assets/img/speakers/familia.jpg",
          "subItems": [
            {
-             "name": "Sub item 1",
-             "quantity": 3
+             "name": "Arroz",
+             "quantity": 1
            },
            {
-             "name": "Sub item 2",
-             "quantity": 3
+             "name": "Azeite",
+             "quantity": 2
            }
          ]
        },
        {
-         "name": "Charlie Cheetah",
-         "profilePic": "assets/img/speakers/cheetah.jpg",
+         "name": "Compras churrasco",
+         "profilePic": "assets/img/speakers/churrasco.jpg",
          "subItems": [
            {
-             "name": "Sub item 1",
-             "quantity": 3
+             "name": "Costela",
+             "quantity": 1
            },
            {
-             "name": "Sub item 2",
-             "quantity": 3
+             "name": "Picanha",
+             "quantity": 1
+           },
+           {
+             "name": "Cerveja",
+             "quantity": 12
            }
          ]
        },
        {
-         "name": "Donald Duck",
-         "profilePic": "assets/img/speakers/duck.jpg",
+         "name": "Festa de aniversário",
+         "profilePic": "assets/img/speakers/aniversario.jpg",
          "subItems": [
            {
-             "name": "Sub item 1",
+             "name": "Bolo",
+             "quantity": 1
+           },
+           {
+             "name": "Refri",
              "quantity": 3
            },
            {
-             "name": "Sub item 2",
+             "name": "Salgadinhos",
              "quantity": 3
            },
            {
-             "name": "Sub item 3",
-             "quantity": 3
+             "name": "Pratos descartáveis",
+             "quantity": 2
            },
            {
-             "name": "Sub item 4",
-             "quantity": 3
+             "name": "Talheres descartáveis",
+             "quantity": 2
            }
-         ]
-       },
-       {
-         "name": "Eva Eagle",
-         "profilePic": "assets/img/speakers/eagle.jpg",
-         "subItems": [
-           {
-             "name": "Sub item 1",
-             "quantity": 3
-           },
-           {
-             "name": "Sub item 2",
-             "quantity": 3
-           }
-         ]
-       },
-       {
-         "name": "Ellie Elephant",
-         "profilePic": "assets/img/speakers/elephant.jpg",
-         "subItems": [
-           {
-             "name": "Sub item 1",
-             "quantity": 3
-           },
-           {
-             "name": "Sub item 2",
-             "quantity": 3
-           }
-         ]
-       },
-       {
-         "name": "Molly Mouse",
-         "profilePic": "assets/img/speakers/mouse.jpg",
-         "subItems": [
-           {
-             "name": "Sub item 1",
-             "quantity": 3
-           },
-           {
-             "name": "Sub item 2",
-             "quantity": 3
-           }
-         ]
-       },
-       {
-         "name": "Paul Puppy",
-         "profilePic": "assets/img/speakers/puppy.jpg",
-         "subItems": [
-           {
-             "name": "Sub item 1",
-             "quantity": 3
-           },
-           {
-             "name": "Sub item 2",
-             "quantity": 3
-           }
+
          ]
        }
      ];
