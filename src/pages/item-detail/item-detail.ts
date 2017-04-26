@@ -34,10 +34,10 @@ export class ItemDetailPage {
   }
 
   quantityIncrement(subItem) {
-    let quantity = this.form.controls.quantity.value;
+    let quantity = this.form.controls.quantidade.value;
     if(quantity < 99) {
       if (subItem == null) {
-          this.form.patchValue({ 'quantity': ++quantity });
+          this.form.patchValue({ 'quantidade': ++quantity });
       } else {
         subItem.quantity++;
       }
@@ -45,10 +45,10 @@ export class ItemDetailPage {
   }
 
   quantityDecrement(subItem) {
-    let quantity = this.form.controls.quantity.value;
+    let quantity = this.form.controls.quantidade.value;
     if(quantity > 1) {
       if (subItem == null) {
-          this.form.patchValue({ 'quantity': --quantity });
+          this.form.patchValue({ 'quantidade': --quantity });
       } else {
         subItem.quantity--;
       }
@@ -57,7 +57,7 @@ export class ItemDetailPage {
 
   done() {
     if(!this.form.valid) { return; }
-    this.item.subItems.push(this.form.value);
+    this.item.itens.push(this.form.value);
     this.form.reset();
   }
 }

@@ -14,6 +14,7 @@ import { ItemCreatePage } from '../pages/item-create/item-create';
 import { ItemDetailPage } from '../pages/item-detail/item-detail';
 
 import { Api } from '../providers/api';
+import { ListService } from '../providers/list-service';
 import { Items } from '../mocks/providers/items';
 
 import { MyApp } from './app.component';
@@ -48,6 +49,7 @@ export function providers() {
     SplashScreen,
     Api,
     Items,
+    ListService,
 
     // Keep this to enable Ionic's runtime error handling during development
     { provide: ErrorHandler, useClass: IonicErrorHandler }

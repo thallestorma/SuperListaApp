@@ -16,8 +16,6 @@
 
 
 <ion-content>
-  <div class="item-profile" text-center #profilePic [style.background-image]="'url(' + item.profilePic + ')'">
-  </div>
   <form *ngIf="form" [formGroup]="form">
     <ion-list>
       <ion-item>
@@ -26,11 +24,11 @@
         <ion-input item-right type="number" formControlName="quantity" disabled="true"></ion-input>
         <button ion-button item-right (click)="quantityIncrement(subItem)"><ion-icon name="md-add"></ion-icon></button>
       </ion-item>
-      <ion-item-sliding *ngFor="let subItem of item.subItems">
+      <ion-item-sliding *ngFor="let subItem of item.itens">
         <ion-item detail-none >
-          <h2>{{subItem.name}}</h2>
+          <h2>{{subItem.nome}}</h2>
           <button ion-button item-right (click)="quantityDecrement(subItem)"><ion-icon name="md-remove"></ion-icon></button>
-          {{subItem.quantity}}
+          {{subItem.quantidade}}
           <button ion-button item-right (click)="quantityIncrement(subItem)"><ion-icon name="md-add"></ion-icon></button>
         </ion-item>
 

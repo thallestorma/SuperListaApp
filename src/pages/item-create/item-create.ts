@@ -25,8 +25,8 @@ export class ItemCreatePage {
 
   constructor(public camera: Camera, public navCtrl: NavController, public viewCtrl: ViewController, formBuilder: FormBuilder) {
     this.form = formBuilder.group({
-      profilePic: [''],
-      name: ['', Validators.required],
+      nome: ['', Validators.required],
+      quantidade: ['', Validators.required],
     });
 
     // Watch the form for changes, and
