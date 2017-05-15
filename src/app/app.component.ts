@@ -6,6 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePage } from '../pages/home/home';
 
 import { ListMasterPage } from '../pages/list-master/list-master';
+import { ListCreatePage } from '../pages/list-create/list-create';
 import { ItemCreatePage } from '../pages/item-create/item-create';
 import { ItemDetailPage } from '../pages/item-detail/item-detail';
 

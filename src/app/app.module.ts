@@ -10,6 +10,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { CloudSettings, CloudModule } from '@ionic/cloud-angular';
 
 import { ListMasterPage } from '../pages/list-master/list-master';
+import { ListCreatePage } from '../pages/list-create/list-create';
 import { ItemCreatePage } from '../pages/item-create/item-create';
 import { ItemDetailPage } from '../pages/item-detail/item-detail';
 
@@ -30,6 +31,7 @@ let pages = [
   MyApp,
   HomePage,
   ListMasterPage,
+  ListCreatePage,
   ItemDetailPage,
   ItemCreatePage
 ];

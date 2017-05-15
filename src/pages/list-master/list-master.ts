@@ -8,6 +8,8 @@ import { Items } from '../../providers/providers';
 import { ListService } from '../../providers/list-service';
 import { Item } from '../../models/item';
 
+import { Api } from '../../providers/api';
+
 import { Http } from '@angular/http';
 
 @Component({
@@ -18,7 +20,7 @@ export class ListMasterPage {
   currentItems: Item[];
   data: any;
 
-  constructor(public http: Http, public navCtrl: NavController, public items: Items, public modalCtrl: ModalController, public listService: ListService) {
+  constructor(public api: Api, public http: Http, public navCtrl: NavController, public items: Items, public modalCtrl: ModalController, public listService: ListService) {
     //this.currentItems = this.items.query();
     this.loadList();
   }
@@ -45,16 +47,16 @@ export class ListMasterPage {
     let addModal = this.modalCtrl.create(ItemCreatePage);
     addModal.onDidDismiss(item => {
       if (item) {
-        var link = 'http://192.168.1.229/superlista/rest/itemrest.php/criarItem';
-        var data = {"id_lista": 1, "itemNome": item.nome, "quantidade": item.quantidade};
-        
-        this.http.post(link, data)
-        .subscribe(data => {
-         
+        console.log(item);
+        var data = {"id_usuario": 1, "nomeLista": item.quantidade};
+
+        this.api.post('listasrest.php/criarLista', data)
+          .map(res => res.json())
+          .subscribe(data => {
+
         }, error => {
-            console.log("Oooops!");
+          console.log("Oooops!");
         });
-        //this.items.add(item);
       }
     })
     addModal.present();
