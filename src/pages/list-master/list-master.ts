@@ -69,10 +69,10 @@ export class ListMasterPage {
           .then(data => {
             console.log('Retorno addList: ', data);
             this.loadList(true);
-          })
-        })
+          });
+        });
       }
-    })
+    });
     addModal.present();
   }
 

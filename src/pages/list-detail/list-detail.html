@@ -20,20 +20,22 @@
     <ion-list>
       <ion-item>
         <ion-input type="text" placeholder="Digite aqui" formControlName="nome"></ion-input>
-        <button ion-button item-right (click)="quantityDecrement(subItem)"><ion-icon name="md-remove"></ion-icon></button>
+        <button ion-button item-right (click)="quantityDecrement(item)"><ion-icon name="md-remove"></ion-icon></button>
         <ion-input item-right type="number" formControlName="quantidade" disabled="true"></ion-input>
-        <button ion-button item-right (click)="quantityIncrement(subItem)"><ion-icon name="md-add"></ion-icon></button>
+        <button ion-button item-right (click)="quantityIncrement(item)"><ion-icon name="md-add"></ion-icon></button>
       </ion-item>
       <ion-item-sliding *ngFor="let item of list.items">
         <ion-item detail-none >
-          <h2>{{item.nome}}</h2>
-          <button ion-button item-right (click)="quantityDecrement(item)"><ion-icon name="md-remove"></ion-icon></button>
-          {{item.quantidade}}
-          <button ion-button item-right (click)="quantityIncrement(item)"><ion-icon name="md-add"></ion-icon></button>
+          <h2 text-left class="item-nome">{{item.nome}}</h2>
+          <div text-right class="item-quantidade-wrapper">
+            <button ion-button item-right (click)="quantityDecrement(item)"><ion-icon name="md-remove"></ion-icon></button>
+            {{item.quantidade}}
+            <button ion-button item-right (click)="quantityIncrement(item)"><ion-icon name="md-add"></ion-icon></button>
+          </div>
         </ion-item>
 
         <ion-item-options>
-          <button ion-button color="danger" (click)="deleteSubItem(subItem)">
+          <button ion-button color="danger" (click)="deleteSubItem(item)">
             Excluir
           </button>
         </ion-item-options>

@@ -50,7 +50,7 @@ export class ListService {
             console.log('itens is: ', itens);
             console.log('Lista is: ', lista);
 
-            return new List(lista.nome, itens);
+            return new List(lista.id, lista.nome, itens);
             //return lista;
             //return new List(lista.nome, items);
           });
@@ -78,20 +78,21 @@ export class ListService {
 
 
   addItem(list: List, newItem: Item) {
-    var itemData = {
+    let itemData = {
       'id_lista': list.id,
       'itemNome': newItem.nome,
       'quantidade': newItem.quantidade
     };
+
     return new Promise(resolve => {
       this.api.post('itemrest.php/criarItem', itemData)
         .map(res => res.json())
         .subscribe(data => {
           console.log('Item adicionado com sucesso: ', itemData);
           resolve(data);
-      }, error => {
-        console.log("Oooops!");
-      });
+        }, error => {
+          console.log("Oooops!");
+        });
     });
   }
 }
