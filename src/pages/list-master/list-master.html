@@ -4,7 +4,7 @@
     <ion-title>Lista de itens</ion-title>
 
     <ion-buttons end>
-      <button ion-button icon-only (click)="addItem()">
+      <button ion-button icon-only (click)="addList()">
         <ion-icon name="add"></ion-icon>
       </button>
     </ion-buttons>
@@ -15,13 +15,13 @@
 <ion-content>
 
   <ion-list>
-    <ion-item-sliding *ngFor="let item of currentItems">
-      <button ion-item (click)="openItem(item)">
-        <h2>{{item.nome}}</h2>
+    <ion-item-sliding *ngFor="let list of currentLists">
+      <button ion-item (click)="openItem(list)">
+        <h2>{{list.nome}}</h2>
       </button>
 
       <ion-item-options>
-        <button ion-button color="danger" (click)="deleteItem(item)">
+        <button ion-button color="danger" (click)="deleteItem(list)">
           Excluir
         </button>
       </ion-item-options>

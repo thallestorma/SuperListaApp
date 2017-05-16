@@ -87,7 +87,7 @@ export class Items {
      ];
 
      for(let item of items) {
-       this.items.push(new Item(item));
+       //this.items.push(new Item(item));
      }
   }
 

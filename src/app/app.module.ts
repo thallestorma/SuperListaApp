@@ -8,11 +8,12 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
 import { CloudSettings, CloudModule } from '@ionic/cloud-angular';
+import { IonicStorageModule } from '@ionic/storage';
 
 import { ListMasterPage } from '../pages/list-master/list-master';
 import { ListCreatePage } from '../pages/list-create/list-create';
+import { ListDetailPage } from '../pages/list-detail/list-detail';
 import { ItemCreatePage } from '../pages/item-create/item-create';
-import { ItemDetailPage } from '../pages/item-detail/item-detail';
 
 import { Api } from '../providers/api';
 import { ListService } from '../providers/list-service';
@@ -32,7 +33,7 @@ let pages = [
   HomePage,
   ListMasterPage,
   ListCreatePage,
-  ItemDetailPage,
+  ListDetailPage,
   ItemCreatePage
 ];
 
@@ -66,7 +67,8 @@ export function providers() {
       backButtonText: 'Voltar'
     }),
     HttpModule,
-    CloudModule.forRoot(cloudSettings)
+    CloudModule.forRoot(cloudSettings),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: entryComponents(),
