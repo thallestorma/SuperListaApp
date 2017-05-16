@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { NavController, NavParams, ViewController } from 'ionic-angular';
 
-import { Items } from '../../providers/providers';
 import { ListService } from '../../providers/list-service';
 
 import { Item } from '../../models/item';
@@ -19,12 +18,12 @@ export class ListDetailPage {
   item: Item;
   form: FormGroup;
 
-  constructor(public navCtrl: NavController, navParams: NavParams, items: Items, public viewCtrl: ViewController, formBuilder: FormBuilder, public listService: ListService) {
+  constructor(public navCtrl: NavController, navParams: NavParams, public viewCtrl: ViewController, formBuilder: FormBuilder, public listService: ListService) {
     this.list = navParams.get('list');
 
     this.form = formBuilder.group({
       nome: ['', Validators.required],
-      quantidade: [{value: '1', disabled: true}, Validators.required],
+      quantidade: [1, Validators.required],
     });
 
     console.log('This form: ', this.form);
@@ -63,9 +62,7 @@ export class ListDetailPage {
   done(list: List) {
     if(!this.form.valid) { return; }
     var itemForm = this.form.value;
-    console.log('This form value: ', this.form.value);
     var newItem = new Item(itemForm.nome, itemForm.quantidade);
-    console.log('This is the IN list: ', list);
 
     this.listService.addItem(list, newItem)
     .then(data => {
@@ -73,7 +70,6 @@ export class ListDetailPage {
       this.list.items.push(newItem);
     })
 
-    //this.list.items.push(this.form.value);
     this.form.reset();
   }
 }

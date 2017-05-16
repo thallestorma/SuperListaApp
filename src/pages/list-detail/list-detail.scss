@@ -1,17 +1,4 @@
 page-list-detail {
-  .item-profile {
-    width: 100%;
-    background-position: center center;
-    background-size: cover;
-    height: 250px;
-  }
-
-  .item-detail {
-    width: 100%;
-    background: white;
-    position: absolute;
-  }
-
   .subitem-quantity-wrapper {
     text-align: right;
   }
@@ -22,5 +9,28 @@ page-list-detail {
 
   .item-quantidade-wrapper {
     float: right;
+  }
+
+  .input-quantidade {
+    width: 45px;
+    font-size: 20px;
+    input {
+      moz-appearance:textfield;
+    }
+  }
+
+  .input-nome {
+    height: 40px;
+    width: 100%;
+    font-size: 17px;
+    input {
+      width: inherit;
+      height: inherit;
+    }
+  }
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
   }
 }

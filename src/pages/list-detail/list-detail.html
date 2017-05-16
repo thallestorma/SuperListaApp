@@ -18,24 +18,39 @@
 <ion-content>
   <form *ngIf="form" [formGroup]="form">
     <ion-list>
-      <ion-item>
-        <ion-input type="text" placeholder="Digite aqui" formControlName="nome"></ion-input>
-        <button ion-button item-right (click)="quantityDecrement(item)"><ion-icon name="md-remove"></ion-icon></button>
-        <ion-input item-right type="number" formControlName="quantidade" disabled="true"></ion-input>
-        <button ion-button item-right (click)="quantityIncrement(item)"><ion-icon name="md-add"></ion-icon></button>
-      </ion-item>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-7>
+            <ion-input text-left type="text" placeholder="Digite aqui" formControlName="nome" class="input-nome"></ion-input>
+          </ion-col>
+
+          <ion-col col-5>
+            <ion-grid>
+              <ion-row>
+                <ion-col col-4>
+                  <button small ion-button (click)="quantityDecrement(item)"><ion-icon name="md-remove"></ion-icon></button>
+                </ion-col>
+                <ion-col col-4>
+                  <ion-input text-center type="number" formControlName="quantidade" disabled="true" class="input-quantidade"></ion-input>
+                </ion-col>
+                <ion-col col-4>
+                  <button small ion-button (click)="quantityIncrement(item)"><ion-icon name="md-add"></ion-icon></button>  
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
       <ion-item-sliding *ngFor="let item of list.items">
         <ion-item detail-none >
           <h2 text-left class="item-nome">{{item.nome}}</h2>
           <div text-right class="item-quantidade-wrapper">
-            <button ion-button item-right (click)="quantityDecrement(item)"><ion-icon name="md-remove"></ion-icon></button>
             {{item.quantidade}}
-            <button ion-button item-right (click)="quantityIncrement(item)"><ion-icon name="md-add"></ion-icon></button>
           </div>
         </ion-item>
 
         <ion-item-options>
-          <button ion-button color="danger" (click)="deleteSubItem(item)">
+          <button ion-button color="danger">
             Excluir
           </button>
         </ion-item-options>

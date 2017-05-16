@@ -17,7 +17,6 @@ import { ItemCreatePage } from '../pages/item-create/item-create';
 
 import { Api } from '../providers/api';
 import { ListService } from '../providers/list-service';
-import { Items } from '../mocks/providers/items';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -51,7 +50,6 @@ export function providers() {
     StatusBar,
     SplashScreen,
     Api,
-    Items,
     ListService,
 
     // Keep this to enable Ionic's runtime error handling during development
