@@ -9,7 +9,7 @@
  */
 export class Item {
 
-  constructor(public nome: string, public quantidade: string) {
+  constructor(public id_usuario_add: any, public nome: string, public quantidade: string) {
 
   }
 

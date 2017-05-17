@@ -7,7 +7,7 @@ import 'rxjs/add/operator/map';
  */
 @Injectable()
 export class Api {
-  url: string = 'http://localhost/SuperLista/rest';
+  url: string = 'http://192.168.1.212/superlista/rest';
 
   constructor(public http: Http) {
   }
@@ -39,8 +39,12 @@ export class Api {
     return this.http.put(this.url + '/' + endpoint, body, options);
   }
 
-  delete(endpoint: string, body: any, options?: RequestOptions) {
-    return this.http.post(this.url + '/' + endpoint, body, options);
+  delete(endpoint: string, options?: RequestOptions) {
+    if (!options) {
+      options = new RequestOptions();
+    }
+    console.log('This is options: ', options);
+    return this.http.delete(this.url + '/' + endpoint, options);
   }
 
   patch(endpoint: string, body: any, options?: RequestOptions) {

@@ -53,8 +53,12 @@ export class ListMasterPage {
     addModal.present();
   }
 
-  deleteItem(item) {
-    //this.items.delete(item);
+  removeList(list) {
+    this.listService.removeList(list)
+    .then(data => {
+      console.log('Retorno removeList: ', data);
+      this.loadList(true);
+    });
   }
 
   openItem(list: List) {

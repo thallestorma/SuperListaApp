@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 
+import { Storage } from '@ionic/storage';
+
 import { Api } from './api';
 
 import { List } from '../models/list';
@@ -16,7 +18,7 @@ import { Item } from '../models/item';
 @Injectable()
 export class ListService {
 
-  constructor(public http: Http, public api: Api) {
+  constructor(public http: Http, public api: Api, public storage: Storage) {
     console.log('Hello ListService Provider');
   }
 
@@ -35,30 +37,30 @@ export class ListService {
       // We're using Angular HTTP provider to request the data,
       // then on the response, it'll map the JSON data to a parsed JS object.
       // Next, we process the data and resolve the promise with the new data.
+      this.storage.get('usuario_logado').then((usuario) => {
+        this.api.get('listasrest.php/todos')
+          .map(res => res.json())
+          .subscribe(data => {
 
-      this.api.get('listasrest.php/todos')
-        .map(res => res.json())
-        .subscribe(data => {
+            this.data = data.map(lista => {
 
-          this.data = data.map(lista => {
+              var itens = lista.itens.map(item => {
+                return new Item(usuario.id, item.nome, item.quantidade);
+              });
 
-            var itens = lista.itens.map(item => {
-              //return new Item(item.id, item.nome, item.quantidade);
-              return new Item(item.nome, item.quantidade);
+              console.log('itens is: ', itens);
+              console.log('Lista is: ', lista);
+
+              return new List(lista.id, lista.nome, itens);
+              //return lista;
+              //return new List(lista.nome, items);
             });
-
-            console.log('itens is: ', itens);
-            console.log('Lista is: ', lista);
-
-            return new List(lista.id, lista.nome, itens);
-            //return lista;
-            //return new List(lista.nome, items);
-          });
-          console.log('This data is: ', this.data);
-          // we've got back the raw data, now generate the core schedule data
-          // and save the data for later reference
-          //this.data = data;
-          resolve(this.data);
+            console.log('This data is: ', this.data);
+            // we've got back the raw data, now generate the core schedule data
+            // and save the data for later reference
+            //this.data = data;
+            resolve(this.data);
+        });
       });
     });
   }
@@ -81,7 +83,8 @@ export class ListService {
     let itemData = {
       'id_lista': list.id,
       'itemNome': newItem.nome,
-      'quantidade': newItem.quantidade
+      'quantidade': newItem.quantidade,
+      'id_usuario_add': newItem.id_usuario_add
     };
 
     return new Promise(resolve => {
@@ -92,6 +95,30 @@ export class ListService {
           resolve(data);
         }, error => {
           console.log("Oooops!");
+        });
+    });
+  }
+
+  removeList(list_data: any) {
+    return new Promise(resolve => {
+      this.api.delete('listasrest.php/excluirLista?id_lista=' + list_data.id)
+        .map(res => res.json())
+        .subscribe(data => {
+          console.log('Lista removida com sucesso: ', data);
+        }, error => {
+          console.log('Oooops!');
+        });
+    });
+  }
+
+  removeItem(item_data: any) {
+    return new Promise(resolve => {
+      this.api.delete('itemrest.php/excluirItem/' + item_data.id)
+        .map(res => res.json())
+        .subscribe(data => {
+          console.log('Item removido com sucesso: ', data);
+        }, error => {
+          console.log('Oooops!');
         });
     });
   }

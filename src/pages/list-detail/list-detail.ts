@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { NavController, NavParams, ViewController } from 'ionic-angular';
 
+import { Storage } from '@ionic/storage';
+
 import { ListService } from '../../providers/list-service';
 
 import { Item } from '../../models/item';
@@ -18,7 +20,7 @@ export class ListDetailPage {
   item: Item;
   form: FormGroup;
 
-  constructor(public navCtrl: NavController, navParams: NavParams, public viewCtrl: ViewController, formBuilder: FormBuilder, public listService: ListService) {
+  constructor(public navCtrl: NavController, navParams: NavParams, public viewCtrl: ViewController, formBuilder: FormBuilder, public listService: ListService, public storage: Storage) {
     this.list = navParams.get('list');
 
     this.form = formBuilder.group({
@@ -33,8 +35,12 @@ export class ListDetailPage {
     });
   }
 
-  deleteSubItem(subItem) {
-    //this.item.subItems.splice(this.item.subItems.indexOf(subItem), 1);
+  removeItem(item) {
+    this.listService.removeItem(item)
+    .then(data => {
+      console.log('Retorno removeItem: ', data);
+      
+    });
   }
 
   quantityIncrement(item) {
@@ -61,15 +67,18 @@ export class ListDetailPage {
 
   done(list: List) {
     if(!this.form.valid) { return; }
-    var itemForm = this.form.value;
-    var newItem = new Item(itemForm.nome, itemForm.quantidade);
+    this.storage.get('usuario_logado').then((usuario) => {
+      var itemForm = this.form.value;
+      var newItem = new Item(usuario.id, itemForm.nome, itemForm.quantidade);
 
-    this.listService.addItem(list, newItem)
-    .then(data => {
-      console.log('Retorno addItem: ', data);
-      this.list.items.push(newItem);
-    })
+      this.listService.addItem(list, newItem)
+      .then(data => {
+        console.log('Retorno addItem: ', data);
+        this.list.items.push(newItem);
+      });
 
-    this.form.reset();
+      this.form.reset();
+    });
+
   }
 }
