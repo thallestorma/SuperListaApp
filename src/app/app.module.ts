@@ -14,6 +14,7 @@ import { ListMasterPage } from '../pages/list-master/list-master';
 import { ListCreatePage } from '../pages/list-create/list-create';
 import { ListDetailPage } from '../pages/list-detail/list-detail';
 import { ItemCreatePage } from '../pages/item-create/item-create';
+import { ItemEditPage } from '../pages/item-edit/item-edit';
 
 import { Api } from '../providers/api';
 import { ListService } from '../providers/list-service';
@@ -33,7 +34,8 @@ let pages = [
   ListMasterPage,
   ListCreatePage,
   ListDetailPage,
-  ItemCreatePage
+  ItemCreatePage,
+  ItemEditPage
 ];
 
 export function declarations() {

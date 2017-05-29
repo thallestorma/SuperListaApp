@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { NavController, ModalController } from 'ionic-angular';
+import { NavController, ModalController, LoadingController } from 'ionic-angular';
+import 'rxjs/Rx';
 
 import { ListDetailPage } from '../list-detail/list-detail';
 import { ListCreatePage } from '../list-create/list-create';
@@ -8,6 +9,7 @@ import { Storage } from '@ionic/storage';
 
 import { ListService } from '../../providers/list-service';
 import { List } from '../../models/list';
+import { Item } from '../../models/item';
 
 import { Api } from '../../providers/api';
 
@@ -19,15 +21,21 @@ export class ListMasterPage {
   currentLists: List[];
   data: any;
 
-  constructor(public api: Api, public navCtrl: NavController, public modalCtrl: ModalController, public listService: ListService, public storage: Storage) {
+  constructor(public api: Api, public navCtrl: NavController, public modalCtrl: ModalController, public loadingCtrl: LoadingController, public listService: ListService, public storage: Storage) {
     this.loadList();
   }
 
   loadList(forceReload = false){
+    let loading = this.loadingCtrl.create({
+      content: 'Carregando...'
+    });
+
+    loading.present();
+
     this.listService.load(forceReload)
     .then(data => {
       this.currentLists = data;
-      console.log('currentLists is: ', data);
+      loading.dismiss();
     });
   }
 

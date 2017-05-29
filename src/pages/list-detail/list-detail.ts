@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
-import { NavController, NavParams, ViewController } from 'ionic-angular';
+import { NavController, NavParams, ViewController, ModalController } from 'ionic-angular';
 
 import { Storage } from '@ionic/storage';
 
 import { ListService } from '../../providers/list-service';
+
+import { ItemEditPage } from '../item-edit/item-edit';
 
 import { Item } from '../../models/item';
 import { List } from '../../models/list';
@@ -14,13 +16,12 @@ import { List } from '../../models/list';
   templateUrl: 'list-detail.html'
 })
 export class ListDetailPage {
-
   isReadyToSave: boolean;
   list: List;
   item: Item;
   form: FormGroup;
 
-  constructor(public navCtrl: NavController, navParams: NavParams, public viewCtrl: ViewController, formBuilder: FormBuilder, public listService: ListService, public storage: Storage) {
+  constructor(public navCtrl: NavController, navParams: NavParams, public viewCtrl: ViewController, public modalCtrl: ModalController, formBuilder: FormBuilder, public listService: ListService, public storage: Storage) {
     this.list = navParams.get('list');
 
     this.form = formBuilder.group({
@@ -35,11 +36,18 @@ export class ListDetailPage {
     });
   }
 
+  reloadItems() {
+    this.listService.reloadItems(this.list)
+    .then(items => {
+      this.list.items = items as Item[];
+    })
+  }
+
   removeItem(item) {
     this.listService.removeItem(item)
     .then(data => {
       console.log('Retorno removeItem: ', data);
-      
+      this.reloadItems();
     });
   }
 
@@ -69,16 +77,40 @@ export class ListDetailPage {
     if(!this.form.valid) { return; }
     this.storage.get('usuario_logado').then((usuario) => {
       var itemForm = this.form.value;
-      var newItem = new Item(usuario.id, itemForm.nome, itemForm.quantidade);
-
+      
+      let newItem = new Item(null, usuario.id, itemForm.nome, itemForm.quantidade);
       this.listService.addItem(list, newItem)
-      .then(data => {
-        console.log('Retorno addItem: ', data);
-        this.list.items.push(newItem);
+      .then(id_inserido => {
+        let newInsertedItem = new Item(id_inserido, usuario.id, itemForm.nome, itemForm.quantidade);
+        this.list.items.push(newInsertedItem);
       });
 
       this.form.reset();
     });
+  }
 
+  openEditable(item: Item) {
+    let editModal = this.modalCtrl.create(ItemEditPage, {item: item});
+    editModal.onDidDismiss(item => {
+      if(item) {
+        console.log('Item editado is: ', item);
+        let item_data = {
+          'id_item': item.id,
+          'itemNome': item.nome,
+          'quantidade': item.quantidade,
+          'item_comprado': 0
+        };
+        console.log('item_data is: ', item_data);
+        this.listService.updateItem(item_data)
+        .then(data => {
+          /*let index = this.list.items.find(it => {
+            if(it.id == item.id) return true;
+          });
+          this.list.items[index] = */
+          console.log(data);
+        })
+      }
+    });
+    editModal.present();
   }
 }

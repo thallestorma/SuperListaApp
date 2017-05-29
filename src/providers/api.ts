@@ -7,7 +7,7 @@ import 'rxjs/add/operator/map';
  */
 @Injectable()
 export class Api {
-  url: string = 'http://192.168.1.212/superlista/rest';
+  url: string = 'http://localhost/SuperListaWS/Rest';
 
   constructor(public http: Http) {
   }

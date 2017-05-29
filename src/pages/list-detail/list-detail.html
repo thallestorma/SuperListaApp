@@ -49,9 +49,14 @@
           </div>
         </ion-item>
 
-        <ion-item-options>
+        <ion-item-options side="right">
           <button ion-button color="danger" (click)="removeItem(item)">
             Excluir
+          </button>
+        </ion-item-options>
+        <ion-item-options side="left">
+          <button ion-button (click)="openEditable(item)">
+            Editar
           </button>
         </ion-item-options>
       </ion-item-sliding>

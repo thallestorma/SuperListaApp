@@ -1,0 +1,53 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Editar item</ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="cancel()">
+        <span color="primary" showWhen="ios">
+          Cancelar
+        </span>
+        <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-buttons end>
+      <button ion-button (click)="done()" [disabled]="!isReadyToSave" strong>
+        <span color="primary" showWhen="ios">
+          Salvar
+        </span>
+        <ion-icon name="md-checkmark" showWhen="core,android,windows"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <form *ngIf="form" [formGroup]="form">
+    <ion-list>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-7>
+            <ion-input text-left type="text" placeholder="Nome do item" formControlName="nome" value="{{ item.nome }}" class="input-nome"></ion-input>
+          </ion-col>
+          <ion-col col-5>
+            <ion-grid>
+              <ion-row>
+                <ion-col col-4>
+                  <button small ion-button (click)="quantityDecrement(item)"><ion-icon name="md-remove"></ion-icon></button>
+                </ion-col>
+                <ion-col col-4>
+                  <ion-input formControlName="quantidade" value="{{ item.quantidade }}" text-center type="text" placeholder="Quantidade do item" class="input-quantidade"></ion-input>
+                </ion-col>
+                <ion-col col-4>
+                  <button small ion-button (click)="quantityIncrement(item)"><ion-icon name="md-add"></ion-icon></button>  
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-list>
+  </form>
+</ion-content>
