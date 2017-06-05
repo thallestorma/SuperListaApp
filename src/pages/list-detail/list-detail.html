@@ -41,12 +41,15 @@
           </ion-col>
         </ion-row>
       </ion-grid>
-      <ion-item-sliding *ngFor="let item of list.items">
-        <ion-item detail-none >
-          <h2 text-left class="item-nome">{{item.nome}}</h2>
-          <div text-right class="item-quantidade-wrapper">
-            {{item.quantidade}}
-          </div>
+      <ion-item-sliding #slidingItem *ngFor="let item of list.items">
+        <ion-item detail-none text-wrap>
+          <ion-checkbox [checked]="isChecked(item)" (ionChange)="changeCheck(item, $event)"></ion-checkbox>
+          <ion-label>
+            <h2 text-left class="item-nome">{{item.nome}}</h2>
+            <div text-right class="item-quantidade-wrapper">
+              {{item.quantidade}}
+            </div>
+          </ion-label>
         </ion-item>
 
         <ion-item-options side="right">
@@ -55,7 +58,7 @@
           </button>
         </ion-item-options>
         <ion-item-options side="left">
-          <button ion-button (click)="openEditable(item)">
+          <button ion-button (click)="openEditable(slidingItem, item)">
             Editar
           </button>
         </ion-item-options>

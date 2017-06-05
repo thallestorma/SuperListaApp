@@ -37,6 +37,9 @@ export class ListCreatePage {
     console.log('ionViewDidLoad ListCreate');
   }
 
+  cancel() {
+    this.viewCtrl.dismiss();
+  }
 
   done() {
     if(!this.form.valid) { return; }

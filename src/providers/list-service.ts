@@ -33,7 +33,10 @@ export class ListService {
           .subscribe(data => {
             this.data = data.map(lista => {
               var itens = lista.itens.map(item => {
-                return new Item(item.id, usuario.id, item.nome, item.quantidade);
+                console.log('Item comprado is: ', item.item_comprado);
+                let newItem = new Item(item.id, usuario.id, item.nome, item.quantidade, item.item_comprado);
+                console.log('newItem is: ', newItem);
+                return newItem;
               });
 
               console.log('itens is: ', itens);
@@ -67,7 +70,7 @@ export class ListService {
       .map(res => res.json())
       .subscribe(data => {
         this.data = data.map(item => {
-          return new Item(item.id, item.id_usuario_add, item.nome, item.quantidade);
+          return new Item(item.id, item.id_usuario_add, item.nome, item.quantidade, item.item_comprado);
         });
         resolve(this.data);
       }, error => {

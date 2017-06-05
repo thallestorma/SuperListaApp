@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
-import { NavController, NavParams, ViewController, ModalController } from 'ionic-angular';
+import { NavController, NavParams, ViewController, ModalController, LoadingController, ItemSliding } from 'ionic-angular';
 
 import { Storage } from '@ionic/storage';
 
 import { ListService } from '../../providers/list-service';
-
 import { ItemEditPage } from '../item-edit/item-edit';
 
 import { Item } from '../../models/item';
@@ -21,15 +20,13 @@ export class ListDetailPage {
   item: Item;
   form: FormGroup;
 
-  constructor(public navCtrl: NavController, navParams: NavParams, public viewCtrl: ViewController, public modalCtrl: ModalController, formBuilder: FormBuilder, public listService: ListService, public storage: Storage) {
+  constructor(public navCtrl: NavController, navParams: NavParams, public viewCtrl: ViewController, public loadingCtrl: LoadingController, public modalCtrl: ModalController, formBuilder: FormBuilder, public listService: ListService, public storage: Storage) {
     this.list = navParams.get('list');
 
     this.form = formBuilder.group({
       nome: ['', Validators.required],
       quantidade: [1, Validators.required],
     });
-
-    console.log('This form: ', this.form);
 
     this.form.valueChanges.subscribe((v) => {
       this.isReadyToSave = this.form.valid;
@@ -77,40 +74,78 @@ export class ListDetailPage {
     if(!this.form.valid) { return; }
     this.storage.get('usuario_logado').then((usuario) => {
       var itemForm = this.form.value;
-      
-      let newItem = new Item(null, usuario.id, itemForm.nome, itemForm.quantidade);
+      let newItem = new Item(null, usuario.id, itemForm.nome, itemForm.quantidade, itemForm.item_comprado);
       this.listService.addItem(list, newItem)
       .then(id_inserido => {
-        let newInsertedItem = new Item(id_inserido, usuario.id, itemForm.nome, itemForm.quantidade);
+        let newInsertedItem = new Item(id_inserido, usuario.id, itemForm.nome, itemForm.quantidade, itemForm.item_comprado);
         this.list.items.push(newInsertedItem);
       });
 
       this.form.reset();
+
+      this.form.patchValue({
+        'quantidade': 1
+      })
     });
   }
 
-  openEditable(item: Item) {
+  openEditable(slidingItem: ItemSliding, item: Item) {
     let editModal = this.modalCtrl.create(ItemEditPage, {item: item});
     editModal.onDidDismiss(item => {
       if(item) {
-        console.log('Item editado is: ', item);
         let item_data = {
           'id_item': item.id,
           'itemNome': item.nome,
           'quantidade': item.quantidade,
-          'item_comprado': 0
+          'item_comprado': item.item_comprado
         };
-        console.log('item_data is: ', item_data);
         this.listService.updateItem(item_data)
         .then(data => {
-          /*let index = this.list.items.find(it => {
-            if(it.id == item.id) return true;
-          });
-          this.list.items[index] = */
+          for(let i in this.list.items) {
+            if(this.list.items[i].id == item.id) {
+              this.list.items[i].quantidade = item.quantidade;
+            }
+          }
+          slidingItem.close();
           console.log(data);
-        })
+        });
       }
     });
     editModal.present();
+  }
+
+  isChecked(item: Item) {
+    let comprado;
+    if(item.item_comprado == '1') {
+      comprado = 'true';
+    } else {
+      comprado = 'false';
+    }
+    return comprado;
+  }
+
+  changeCheck(item: Item, event: any) {
+    let loading = this.loadingCtrl.create({
+      content: 'Atualizando...'
+    });
+    loading.present();
+    let item_comprado = event.checked ? '1': '0';
+    let item_data = {
+      'id_item': item.id,
+      'itemNome': item.nome,
+      'quantidade': item.quantidade,
+      'item_comprado': item_comprado
+    };
+    this.listService.updateItem(item_data)
+    .then(data => {
+      for(let i in this.list.items) {
+        if(this.list.items[i].id == item.id) {
+          this.list.items[i].item_comprado = item_comprado;
+        }
+      }
+      loading.dismiss();
+      console.log('return changeCheck: ', data);
+
+    });
   }
 }
