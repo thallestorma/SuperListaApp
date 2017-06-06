@@ -99,11 +99,13 @@ export class ListDetailPage {
           'quantidade': item.quantidade,
           'item_comprado': item.item_comprado
         };
+        console.log('item_data is: ', item);
         this.listService.updateItem(item_data)
         .then(data => {
           for(let i in this.list.items) {
             if(this.list.items[i].id == item.id) {
               this.list.items[i].quantidade = item.quantidade;
+              this.list.items[i].nome = item.nome;
             }
           }
           slidingItem.close();
