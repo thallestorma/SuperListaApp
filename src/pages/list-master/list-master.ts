@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController, ModalController, LoadingController } from 'ionic-angular';
+import { NavController, ModalController, LoadingController, ItemSliding } from 'ionic-angular';
 import 'rxjs/Rx';
 
 import { ListDetailPage } from '../list-detail/list-detail';
 import { ListCreatePage } from '../list-create/list-create';
+import { ListEditPage } from '../list-edit/list-edit';
 
 import { Storage } from '@ionic/storage';
 
@@ -73,5 +74,30 @@ export class ListMasterPage {
     this.navCtrl.push(ListDetailPage, {
       list: list
     });
+  }
+
+  openEditable(slidingList: ItemSliding, list: List) {
+    let editModal = this.modalCtrl.create(ListEditPage, {list: list});
+    editModal.onDidDismiss(list => {
+      console.log('list editado is: ', list);
+      if(list) {
+        let list_data = {
+          'id_lista': list.id,
+          'nomeLista': list.nome
+        };
+        console.log('list_data is: ', list);
+        this.listService.updateList(list_data)
+        .then(data => {
+          for(let i in this.currentLists) {
+            if(this.currentLists[i].id == list.id) {
+              this.currentLists[i].nome = list.nome;
+            }
+          }
+          slidingList.close();
+          console.log(data);
+        });
+      }
+    });
+    editModal.present();
   }
 }

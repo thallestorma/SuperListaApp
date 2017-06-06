@@ -15,14 +15,19 @@
 <ion-content>
 
   <ion-list>
-    <ion-item-sliding *ngFor="let list of currentLists">
+    <ion-item-sliding #slidingList *ngFor="let list of currentLists">
       <button ion-item (click)="openItem(list)">
         <h2>{{list.nome}}</h2>
       </button>
 
-      <ion-item-options>
+      <ion-item-options side="right">
         <button ion-button color="danger" (click)="removeList(list)">
           Excluir
+        </button>
+      </ion-item-options>
+      <ion-item-options side="left">
+        <button ion-button (click)="openEditable(slidingList, list)">
+          Editar
         </button>
       </ion-item-options>
     </ion-item-sliding>

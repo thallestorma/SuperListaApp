@@ -13,6 +13,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { ListMasterPage } from '../pages/list-master/list-master';
 import { ListCreatePage } from '../pages/list-create/list-create';
 import { ListDetailPage } from '../pages/list-detail/list-detail';
+import { ListEditPage } from '../pages/list-edit/list-edit';
 import { ItemCreatePage } from '../pages/item-create/item-create';
 import { ItemEditPage } from '../pages/item-edit/item-edit';
 
@@ -34,6 +35,7 @@ let pages = [
   ListMasterPage,
   ListCreatePage,
   ListDetailPage,
+  ListEditPage,
   ItemCreatePage,
   ItemEditPage
 ];

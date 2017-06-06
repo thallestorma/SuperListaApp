@@ -138,4 +138,17 @@ export class ListService {
         });
     });
   }
+
+  updateList(list_data: any) {
+    return new Promise(resolve => {
+      this.api.put('listasrest.php/atualizarLista', list_data)
+        .map(res => res.json())
+        .subscribe(data => {
+          console.log('Lista atualizada com sucesso: ', data);
+          resolve(data);
+        }, error => {
+          console.log('Oooops!');
+        });
+    });
+  }
 }
