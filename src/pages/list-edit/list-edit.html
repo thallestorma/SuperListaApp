@@ -36,14 +36,21 @@
     <ion-list>
       <ion-list-header text-center>Compartilhar lista</ion-list-header>
       <ion-item>
-        <ion-input type="text" placeholder="Digite o e-mail"></ion-input>
+        <ion-input type="text" placeholder="Digite o e-mail" [(ngModel)]="emailShare" [ngModelOptions]="{standalone: true}"></ion-input>
       </ion-item>
-      <button ion-item color="secondary" detail-none default>Adicionar</button>
     </ion-list>
 
-    <ion-list>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <button ion-button color="secondary" detail-none default large (click)="shareList(list)">Adicionar</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-list *ngFor="let usuario of list.usuario">
       <ion-item>
-        <ion-label>Bla bla</ion-label>
+        <ion-label>{{ usuario.nome }}</ion-label>
       </ion-item>
     </ion-list>
   </form>

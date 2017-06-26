@@ -4,6 +4,8 @@ import { NavController, NavParams, ViewController } from 'ionic-angular';
 
 import { List } from '../../models/list';
 
+import { ListService } from '../../providers/list-service';
+
 @Component({
   selector: 'page-list-edit',
   templateUrl: 'list-edit.html',
@@ -12,8 +14,9 @@ export class ListEditPage {
   isReadyToSave: boolean;
   form: FormGroup;
   list: List;
+  emailShare: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, formBuilder: FormBuilder) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, formBuilder: FormBuilder, public listService: ListService) {
     this.list = navParams.get('list');
 
     this.form = new FormGroup({
@@ -38,5 +41,16 @@ export class ListEditPage {
 
   cancel() {
     this.viewCtrl.dismiss();
+  }
+
+  shareList(list) {
+    let share_list_data = {
+      'id_lista': list.id,
+      'contribuinteEmail': this.emailShare
+    };
+    this.listService.shareList(share_list_data)
+      .then(data => {
+
+      });
   }
 }

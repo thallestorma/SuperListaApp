@@ -151,4 +151,17 @@ export class ListService {
         });
     });
   }
+
+  shareList(share_list_data: any) {
+    return new Promise(resolve => {
+      this.api.put('listasrest.php/adicionarcontribuinte', share_list_data)
+        .map(res => res.json())
+        .subscribe(data => {
+          console.log('Lista compartilhada com sucesso: ', data);
+          resolve(data);
+        }, error => {
+          console.log('Oooops!');
+        });
+    });
+  }
 }
