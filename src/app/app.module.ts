@@ -7,6 +7,8 @@ import { Camera } from '@ionic-native/camera';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
+
 import { CloudSettings, CloudModule } from '@ionic/cloud-angular';
 import { IonicStorageModule } from '@ionic/storage';
 
@@ -19,6 +21,7 @@ import { ItemEditPage } from '../pages/item-edit/item-edit';
 
 import { Api } from '../providers/api';
 import { ListService } from '../providers/list-service';
+import { UserService } from '../providers/user-service';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -55,6 +58,7 @@ export function providers() {
     SplashScreen,
     Api,
     ListService,
+    UserService,
 
     // Keep this to enable Ionic's runtime error handling during development
     { provide: ErrorHandler, useClass: IonicErrorHandler }
@@ -70,7 +74,8 @@ export function providers() {
     }),
     HttpModule,
     CloudModule.forRoot(cloudSettings),
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    TypeaheadModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: entryComponents(),

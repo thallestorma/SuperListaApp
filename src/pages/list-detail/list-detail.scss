@@ -33,4 +33,11 @@ page-list-detail {
   input::-webkit-inner-spin-button {
     -webkit-appearance: none;
   }
+
+  typeahead-container {
+    position: absolute;
+    display: block;
+    top: 85px;
+    left: 5px;
+  }
 }

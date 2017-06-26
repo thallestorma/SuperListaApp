@@ -27,7 +27,23 @@
   <form *ngIf="form" [formGroup]="form">
     <ion-list>
       <ion-item>
+        <ion-label stacked>Nome</ion-label>
         <ion-input type="text" placeholder="Nome da lista" formControlName="nome" value="{{ list.nome }}"></ion-input>
+      </ion-item>
+    </ion-list>
+
+
+    <ion-list>
+      <ion-list-header text-center>Compartilhar lista</ion-list-header>
+      <ion-item>
+        <ion-input type="text" placeholder="Digite o e-mail"></ion-input>
+      </ion-item>
+      <button ion-item color="secondary" detail-none default>Adicionar</button>
+    </ion-list>
+
+    <ion-list>
+      <ion-item>
+        <ion-label>Bla bla</ion-label>
       </ion-item>
     </ion-list>
   </form>

@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { NavController, NavParams, ViewController, ModalController, LoadingController, ItemSliding } from 'ionic-angular';
+import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/map'
 
 import { Storage } from '@ionic/storage';
 
 import { ListService } from '../../providers/list-service';
+import { UserService } from '../../providers/user-service';
 import { ItemEditPage } from '../item-edit/item-edit';
 
 import { Item } from '../../models/item';
@@ -19,8 +22,9 @@ export class ListDetailPage {
   list: List;
   item: Item;
   form: FormGroup;
+  preferences:any;
 
-  constructor(public navCtrl: NavController, navParams: NavParams, public viewCtrl: ViewController, public loadingCtrl: LoadingController, public modalCtrl: ModalController, formBuilder: FormBuilder, public listService: ListService, public storage: Storage) {
+  constructor(public navCtrl: NavController, navParams: NavParams, public viewCtrl: ViewController, public loadingCtrl: LoadingController, public modalCtrl: ModalController, formBuilder: FormBuilder, public listService: ListService, public userService: UserService, public storage: Storage) {
     this.list = navParams.get('list');
 
     this.form = formBuilder.group({
@@ -31,6 +35,11 @@ export class ListDetailPage {
     this.form.valueChanges.subscribe((v) => {
       this.isReadyToSave = this.form.valid;
     });
+
+    this.userService.loadPreferences()
+      .then(preferences => {
+        this.preferences = preferences;
+      });
   }
 
   reloadItems() {

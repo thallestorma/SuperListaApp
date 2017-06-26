@@ -21,7 +21,7 @@
       <ion-grid>
         <ion-row>
           <ion-col col-7>
-            <ion-input text-left type="text" placeholder="Digite aqui" formControlName="nome" class="input-nome"></ion-input>
+            <ion-input text-left type="text" placeholder="Digite aqui" formControlName="nome" [typeahead]="preferences" class="input-nome"></ion-input>
           </ion-col>
 
           <ion-col col-5>
