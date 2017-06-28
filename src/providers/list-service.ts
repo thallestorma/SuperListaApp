@@ -28,7 +28,7 @@ export class ListService {
 
     return new Promise(resolve => {
       this.storage.get('usuario_logado').then((usuario) => {
-        this.api.get('listasrest.php/todos')
+        this.api.get('listasrest.php/listasUsuario/' + usuario.id)
           .map(res => res.json())
           .subscribe(data => {
             this.data = data.map(lista => {
