@@ -13,9 +13,38 @@ import { Item } from '../models/item';
 export class ListService {
 
   data: any;
+  errors: any;
 
   constructor(public http: Http, public api: Api, public storage: Storage) {
     console.log('Hello ListService Provider');
+
+    this.errors = [
+      {
+        value: -10,
+        message: 'Item não pode ser inserido.'
+      },
+      {
+        value: -20,
+        message: 'Item não pode ser apagado.'
+      },
+      {
+        value: -30,
+        message: 'Usuário não encontrado ou não pode ser adicionado a lista.'
+      }
+    ];
+  }
+
+  getError(value) {
+    let error = this.errors.find((element, index, array) => {
+      return element.value == value;
+    })
+
+    if(!error) {
+      return value;
+    }
+    console.log('error: ', error);
+
+    return error.message;
   }
 
   load(forceReload) {
@@ -32,17 +61,24 @@ export class ListService {
           .map(res => res.json())
           .subscribe(data => {
             this.data = data.map(lista => {
-              var itens = lista.itens.map(item => {
-                console.log('Item comprado is: ', item.item_comprado);
-                let newItem = new Item(item.id, usuario.id, item.nome, item.quantidade, item.item_comprado);
-                console.log('newItem is: ', newItem);
-                return newItem;
-              });
+              if(lista.itens) {
+                var itens = lista.itens.map(item => {
+                  console.log('Item comprado is: ', item.item_comprado);
+                  let newItem = new Item(item.id, usuario.id, item.nome, item.quantidade, item.item_comprado);
+                  console.log('newItem is: ', newItem);
+                  return newItem;
+                });
+                console.log('itens is: ', itens);
+              }
 
-              console.log('itens is: ', itens);
+              if(lista.usuario) {
+                var usuarios = lista.usuario.map(usu => usu);
+                console.log('usuarios is: ', usuarios);
+              }
+
               console.log('Lista is: ', lista);
 
-              return new List(lista.id, lista.nome, itens);
+              return new List(lista.id, lista.nome, itens, usuarios);
             });
             console.log('This data is: ', this.data);
             resolve(this.data);
@@ -153,14 +189,35 @@ export class ListService {
   }
 
   shareList(share_list_data: any) {
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
       this.api.put('listasrest.php/adicionarcontribuinte', share_list_data)
         .map(res => res.json())
         .subscribe(data => {
-          console.log('Lista compartilhada com sucesso: ', data);
-          resolve(data);
+          if(isNaN(data)) {
+            resolve(data);
+          } else {
+            reject(this.getError(data));
+          }
         }, error => {
           console.log('Oooops!');
+          reject(this.getError(error));
+        });
+    });
+  }
+
+  unshareList(share_list_data: any) {
+    return new Promise((resolve, reject) => {
+      this.api.delete('listasrest.php/excluircontribuinte?id_lista=' + share_list_data.id_lista + '&contribuinteEmail=' + share_list_data.contribuinteEmail)
+        .map(res => res.json())
+        .subscribe(data => {
+          if(isNaN(data)) {
+            resolve(data);
+          } else {
+            reject(this.getError(data));
+          }
+        }, error => {
+          console.log('Oooops!');
+          reject(this.getError(error));
         });
     });
   }
