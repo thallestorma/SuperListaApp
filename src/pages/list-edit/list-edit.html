@@ -34,9 +34,34 @@
   </form>
 
     <ion-card>
-      <ion-card-header>Compartilhe a lista</ion-card-header>
+      <ion-card-header>Membros da lista</ion-card-header>
       <ion-card-content>
+
         <ion-list class="shareList">
+          <!-- <ion-list-header text-left>Participantes</ion-list-header> -->
+          <ion-item>
+            <ion-avatar item-left>
+              <img src="assets/img/profile_owner.jpg">
+            </ion-avatar>
+            <ion-label>Você</ion-label>
+          </ion-item>
+
+          <ion-item-sliding *ngFor="let usuario of list.usuarios">
+            <ion-item>
+              <ion-avatar item-left>
+                <img src="assets/img/profile.jpg">
+              </ion-avatar>
+              <ion-label>{{ usuario.email }}</ion-label>
+            </ion-item>
+            <ion-item-options side="right">
+              <button ion-button color="danger" (click)="unshareList(list, usuario)">
+                Excluir
+              </button>
+            </ion-item-options>
+          </ion-item-sliding>
+        </ion-list>
+
+        <!-- <ion-list class="shareList">
           <ion-list-header text-left>Participantes</ion-list-header>
           <ion-item *ngFor="let usuario of list.usuarios">
             <button clear ion-button item-left icon-only color="danger" *ngIf="usuario.id != usuarioLogado?.id" (click)="unshareList(list, usuario)">
@@ -44,7 +69,7 @@
             </button>
             <ion-label>{{ usuario.email }}</ion-label>
           </ion-item>
-        </ion-list>
+        </ion-list> -->
 
         <ion-list>
           <ion-item>

@@ -2,4 +2,17 @@ page-list-edit {
 	.shareList {
 		margin-bottom: 50px;
 	}
+
+	ion-avatar {
+		min-width: initial !important;
+		min-height: initial !important;
+		img {
+			width: 26px !important;
+			height: 26px !important;
+		}
+	}
+
+	ion-content {
+		background-color: #fafafa !important;
+	}
 }

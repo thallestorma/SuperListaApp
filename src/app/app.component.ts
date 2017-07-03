@@ -23,7 +23,7 @@ export class MyApp {
     storage.ready().then(() => {
       // set a key/value
       storage.set('usuario_logado', {
-        'id': 1,
+        'id': 2,
         'nome': 'Thalles'
       });
 

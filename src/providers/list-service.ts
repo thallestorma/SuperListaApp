@@ -37,7 +37,7 @@ export class ListService {
   getError(value) {
     let error = this.errors.find((element, index, array) => {
       return element.value == value;
-    })
+    });
 
     if(!error) {
       return value;
@@ -45,6 +45,14 @@ export class ListService {
     console.log('error: ', error);
 
     return error.message;
+  }
+
+  isError(value) {
+    if(!isNaN(value)) {
+      if(value != 0) return true;
+    }
+
+    return false;
   }
 
   load(forceReload) {
@@ -193,10 +201,10 @@ export class ListService {
       this.api.put('listasrest.php/adicionarcontribuinte', share_list_data)
         .map(res => res.json())
         .subscribe(data => {
-          if(isNaN(data)) {
-            resolve(data);
-          } else {
+          if(this.isError(data)) {
             reject(this.getError(data));
+          } else {
+            resolve(data);
           }
         }, error => {
           console.log('Oooops!');
@@ -210,10 +218,10 @@ export class ListService {
       this.api.delete('listasrest.php/excluircontribuinte?id_lista=' + share_list_data.id_lista + '&contribuinteEmail=' + share_list_data.contribuinteEmail)
         .map(res => res.json())
         .subscribe(data => {
-          if(isNaN(data)) {
-            resolve(data);
-          } else {
+          if(this.isError(data)) {
             reject(this.getError(data));
+          } else {
+            resolve(data);
           }
         }, error => {
           console.log('Oooops!');
